@@ -79,7 +79,7 @@ void temp_ctl()
   int16_t MotorGoalTemp = 70;
   uint8_t SetPWM = 0;
 
-#if FIXEDTEMP
+#if !FIXEDTEMP
   if (CarState.InvTemp < InvGoalTemp && CarState.MotorTemp < MotorGoalTemp)
   {
     SetPWM = 10;
@@ -103,11 +103,12 @@ void temp_ctl()
     setNodeDevicePWM(RightPump, SetPWM);
     setNodeDevicePWM(LeftPump, SetPWM);
   }
-#endif
 
+#else
   setNodeDevicePWM(SideFans, 20);
   setNodeDevicePWM(RightPump, 90);
   setNodeDevicePWM(LeftPump, 90);
+#endif
 }
 
 uint32_t PowerReceived = 0;
