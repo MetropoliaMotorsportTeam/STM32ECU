@@ -32,9 +32,9 @@
 #define LENZE_MOTORB_OFFSET			(63)
 
 
-
+#define TWOWHEELS
 #ifdef TWOWHEELS
-    #define Inverter1_NodeID            (0xE)
+    #define Inverter1_NodeID            (0x6)
     #define Inverter2_NodeID			(1)
 #else
     #define Inverter1_NodeID			(6)
