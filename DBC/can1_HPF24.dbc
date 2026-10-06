@@ -2092,6 +2092,18 @@ BO_ 151 SOC: 8 AMS
  SG_ Sum_of_cells : 32|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Max_temp : 48|16@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 154 AMS_Error: 8 AMS
+ SG_ ERR_Undervoltage : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ ERR_Overvoltage : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ ERR_Undertemp : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ ERR_Overtemp : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ ERR_No_IVT : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ ERR_PEC : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ Min_V : 8|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ Max_V : 24|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ Min_temp : 40|8@1- (1,0) [0|0] "C" Vector__XXX
+ SG_ Max_temp : 48|8@1- (1,0) [0|0] "C" Vector__XXX
+
 
 
 CM_ BO_ 3221225472 "This is a message for not used signals, created by Vector CANdb++ DBC OLE DB Provider.";

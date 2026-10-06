@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: ECU PowerNode1 PowerNode2 AnalogNode1 AnalogNode2 DashBoard
+BU_: ECU PowerNode1 PowerNode2 AnalogNode1 AnalogNode2 DashBoard IMU
 
 
 BO_ 3221225472 VECTOR__INDEPENDENT_SIG_MSG: 0 Vector__XXX
@@ -165,6 +165,82 @@ BO_ 29 PN1_Device_Status: 1 PowerNode1
 
 BO_ 30 PN2_Device_Status: 1 PowerNode2
 
+BO_ 1350 IMU_Gyro: 8 IMU
+ SG_ GyroX : 7|16@0- (0.01,0) [-327.68|327.67] "deg/s" ECU
+ SG_ GyroY : 23|16@0- (0.01,0) [-327.68|327.67] "deg/s" ECU
+ SG_ GyroZ : 39|16@0- (0.01,0) [-327.68|327.67] "deg/s" ECU
+ SG_ StatSum : 55|16@0+ (1,0) [0|65535] "" ECU
+
+BO_ 1351 IMU_Accel: 8 IMU
+ SG_ AccelX : 7|16@0- (0.01,0) [-327.68|327.67] "m/s^2" ECU
+ SG_ AccelY : 23|16@0- (0.01,0) [-327.68|327.67] "m/s^2" ECU
+ SG_ AccelZ : 39|16@0- (0.01,0) [-327.68|327.67] "m/s^2" ECU
+
+BO_ 1352 GNSS_Speed: 8 IMU
+ SG_ Speed : 7|16@0+ (0.001,0) [0|65.535] "m/s" ECU
+ SG_ Course : 23|16@0- (0.1,0) [0|360] "deg" ECU
+ SG_ FixType : 39|8@0+ (1,0) [0|255] "" ECU
+ SG_ Satellites : 47|8@0+ (1,0) [0|255] "" ECU
+ SG_ Valid : 55|8@0+ (1,0) [0|1] "" ECU
+ SG_ AntennaStatus : 63|8@0+ (1,0) [0|255] "" ECU
+
+BO_ 1353 GNSS_Diag: 8 IMU
+ SG_ SvInView : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ MaxSNR : 15|8@0+ (1,0) [0|255] "dBHz" Vector__XXX
+ SG_ SentencesOk : 23|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ SentencesBad : 31|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ AntennaStatus : 39|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ AntShort : 47|8@0+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 1354 GNSS_Position: 8 IMU
+ SG_ Latitude : 7|32@0- (1E-007,0) [-90|90] "deg" ECU
+ SG_ Longitude : 39|32@0- (1E-007,0) [-180|180] "deg" ECU
+
+BO_ 1355 IMU_Status: 8 IMU
+ SG_ StatCom : 7|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ StatRateX : 23|16@0+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 1356 GNSS_YawRate: 8 IMU
+ SG_ GpsYawRate : 7|16@0- (0.01,0) [-327.68|327.67] "deg/s" Vector__XXX
+ SG_ ImuYawRate : 23|16@0- (0.01,0) [-327.68|327.67] "deg/s" Vector__XXX
+ SG_ DeltaYawRate : 39|16@0- (0.01,0) [-327.68|327.67] "deg/s" Vector__XXX
+
+BO_ 1360 Est_State: 8 IMU
+ SG_ Speed : 7|16@0- (0.001,0) [-32.768|32.767] "m/s" ECU
+ SG_ Yaw : 23|16@0- (0.01,0) [-327.68|327.67] "deg" ECU
+ SG_ Roll : 39|16@0- (0.01,0) [-327.68|327.67] "deg" ECU
+ SG_ Pitch : 55|16@0- (0.01,0) [-327.68|327.67] "deg" ECU
+
+BO_ 1361 Est_Slip: 8 IMU
+ SG_ BetaR : 7|16@0- (0.001,0) [-32.768|32.767] "rad" ECU
+ SG_ BetaF : 23|16@0- (0.001,0) [-32.768|32.767] "rad" ECU
+ SG_ Kus : 39|16@0- (0.001,0) [-32.768|32.767] "rad" ECU
+
+BO_ 1370 IMU_Diag: 8 IMU
+ SG_ EstMaxTime : 7|16@0+ (1,0) [0|65535] "us" Vector__XXX
+ SG_ LoopMaxTime : 23|16@0+ (1,0) [0|65535] "us" Vector__XXX
+ SG_ CpuLoad : 39|16@0+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ EstCalls : 55|16@0+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 1397 IMU_BootDiag: 8 IMU
+ SG_ InitResult : 7|8@0+ (1,0) [0|3] "" Vector__XXX
+ SG_ SensorStatus : 15|8@0+ (1,0) [0|3] "" Vector__XXX
+ SG_ CompId : 23|16@0+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 1399 IMU_Boot: 8 IMU
+ SG_ Heartbeat : 7|16@0+ (1,0) [0|65535] "" Vector__XXX
 
 
 
+CM_ BO_ 1350 "IMU board SCH16T gyro, 100 Hz";
+CM_ SG_ 1350 GyroZ "Yaw rate, positive = turning left (CCW seen from above) if board Z axis points up";
+CM_ BO_ 1352 "GNSS speed/course, sent once per RMC sentence";
+CM_ SG_ 1352 Speed "Sent as int16 mm/s by IMU board, decode unsigned so speeds above 32.767 m/s do not wrap negative";
+CM_ SG_ 1352 FixType "0 = no fix";
+CM_ BO_ 1360 "Estimator state, sent after every estimator step";
+CM_ SG_ 1360 Speed "Overflows above 32.767 m/s";
+CM_ BO_ 1397 "Sent once at IMU board boot";
+CM_ SG_ 1397 CompId "0x0000 = SPI not reaching sensor";
+CM_ BO_ 1399 "Boot heartbeat, 0xB007";
+VAL_ 1397 InitResult 0 "HAL_OK" 1 "HAL_ERROR" 2 "HAL_BUSY" 3 "HAL_TIMEOUT" ;
+VAL_ 1397 SensorStatus 0 "Normal" 1 "Error" 2 "Saturation" 3 "Init" ;
