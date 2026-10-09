@@ -231,7 +231,7 @@ Sets APPS torque request according to pedal position and pedal curve.
 int PedalTorqueRequest(int16_t *used_pedal_percent) // returns current Nm request amount.
 {
 
-	uint16_t APPS1_raw = APPS1.data;
+	uint16_t APPS1_raw = APPS2.data;
 	uint16_t APPS2_raw = APPS2.data;
 	uint16_t BPPS_raw = BPPS.data;
 
@@ -253,7 +253,7 @@ int PedalTorqueRequest(int16_t *used_pedal_percent) // returns current Nm reques
 
 	//The absolute value of the difference between the APPS (Accelerator Pedal Position Sensors)
 
-	if(BPPS_raw > 20){
+	if(BPPS_raw > 200){
 		CarState.pedalreq = 0;
 		return 1;
 	}
@@ -278,7 +278,7 @@ int PedalTorqueRequest(int16_t *used_pedal_percent) // returns current Nm reques
 		/////////////////// quick fix for now
 		torqueperc = (torqueperc < 10) ? 0 : torqueperc;
 		//////////////////
-		CarState.pedalreq = torqueperc;
+		CarState.pedalreq = torqueperc / 10;
 	}
 }
 
